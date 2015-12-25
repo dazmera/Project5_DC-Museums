@@ -1,0 +1,137 @@
+html, body { 
+	height: 100%; 
+	margin: 0; 
+	padding: 0; 
+}
+
+ /*********************************************
+	MOBILE VIEW
+ *********************************************/
+
+#map { 
+	height: 100%;
+	max-width: 100%;
+}
+
+
+#pac-input {
+	display:none;
+	position: absolute;
+	bottom: 20%;
+	left: 0;
+	right: 0;
+	margin-left: auto;
+	margin-right: auto;
+	height: 30px;
+	padding-left: 5px;
+	width: 70%;
+}
+
+#pac-input:focus {
+ 	border-color: #4d90fe;
+}
+
+#list {
+	padding-left: 0;
+	margin-bottom: 0;
+	display: block;
+}
+
+li {
+	color: #fff;
+	list-style: none;
+	border-bottom: 1px solid gray;
+	width: 85%;
+	font-size: 0.7em;
+	padding-left: 8px;
+}
+
+.listView {
+	width: 20%;
+	position: absolute;
+	top: 50px;
+	left: 10px;
+	background-color: #000;
+	opacity: 0.7;
+	cursor: pointer;
+	display: none;
+
+}
+#dropDownMenu {
+	display: inline;
+	position: absolute;
+	top: 10px;
+	left: 35%;
+}
+
+@media screen and (max-width: 768px) {
+	.gm-style-iw {
+		max-width: 100px; 
+		height: 100px;
+	}
+
+	#window{
+		height: 100px;
+		overflow-y:scroll;
+	}
+}
+
+
+/*********************************************
+	TABLET VIEW
+ *********************************************/
+
+@media screen and (min-width: 768px) {
+
+	#pac-input {
+		display: block;
+		width: 14%;
+		position: absolute;
+		top: 50px;
+		left: 10px;
+		padding-left: 7px;
+		font-size: 0.7em;
+		margin: 0;
+	}
+
+	li {
+	  	padding-left: 20px;
+  	}
+
+  	.listView {
+	  	width: 15%;
+		position: absolute;
+		top: 100px;
+		left: 10px;
+		display: block;
+	}
+
+	#dropDownMenu {
+		display: none;
+	}
+
+}
+
+/*********************************************
+	Desktop View
+ *********************************************/
+
+@media screen and (min-width: 1200px) {
+	#pac-input {
+		display: block;
+		width: 14.5%;
+		position: absolute;
+		top: 50px;
+		left: 10px;
+		padding-left: 10px;
+		font-size: 1em;
+	}
+
+
+	li {
+	  	width: 90%;
+	  	font-size: 1em;
+	  	padding-left: 20px;
+  	}
+ 
+}
