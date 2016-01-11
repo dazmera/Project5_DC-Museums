@@ -1,6 +1,6 @@
-var markerList = ko.observableArray([]);
+var iconList = ko.observableArray([]);
 var infowindow;
-var points = ko.observableArray([]);
+var locations = ko.observableArray([]);
 
 function initMap(){
   //Create map and set initial coordinates and zoom level
@@ -13,11 +13,12 @@ function initMap(){
   google.maps.event.addDomListener(window, "resize", function() {
     google.maps.event.trigger(this.Map, "resize");
     this.Map.setCenter(this.center); 
+
   });
 
   infowindow = new google.maps.InfoWindow();
   //Function for creating points at different locations on the map
-  var Point = function (map, name, lat, lon) {
+    var Point = function (map, name, lat, lon) {
     var markerLat = lat;
     var markerLon = lon;
 
@@ -29,10 +30,9 @@ function initMap(){
     });
 
     this.marker = ko.observable(marker);
-    //Pushes marker into an observable array
-    markerList.push(marker);
+    iconList.push(marker);
 
-    //Fetches information from foursquare on marker click
+    //brings information from foursquare on marker click
     google.maps.event.addListener(marker, 'click', (function(marker)  {
             return function() {
 
@@ -56,25 +56,23 @@ function initMap(){
                       infowindow.setContent(windowContent);
                 },
                 error: function(){
-                  alert('Unable to retrieve Fourquare data');
+                  alert('Unable to retrieve Foursquare data');
                 }
 
               });
                           
-
                 //Open infowindow and pan to clicked marker
                 marker.setAnimation(google.maps.Animation.BOUNCE); //Makes marker bounce
                 setTimeout(function(){marker.setAnimation(null); }, 750); //Makes marker stop bouncing after one bounce
                 map.panTo(marker.getPosition());
                 infowindow.open(map, marker);        
 
-            }; //End of return function()
-        })(marker)); //End of click event listener
+            }; 
+        })(marker)); 
+  }; 
 
-  }; //End of Point function
-
-   //Model with all points
-  points = ko.observableArray ([
+   //Model 
+  locations = ko.observableArray ([
   new Point(this.Map, 'National Air and Space Museum', 38.8881601,  -77.0198679),
   new Point(this.Map, 'National Gallery of Art', 38.891298, -77.019965),
   new Point(this.Map, 'National Museum of Natural History', 38.8912662, -77.0260654),
@@ -83,28 +81,29 @@ function initMap(){
   
   ]);
 
-  for (i=0; i<markerList().length; i++) {
-        markerList()[i].setMap(this.Map);
+  for (i=0; i<iconList().length; i++) {
+        iconList()[i].setMap(this.Map);
         
   }
 }
 
-//Start viewModel
+// viewModel
 var viewModel = function(){
   var self = this;
 
-  //Triggers marker click when corresponding list item is clicked
-  self.listClick = function(clicked){
-      var pos = markerList().indexOf(this);
-      google.maps.event.trigger(markerList()[pos], 'click');
+  //Triggers marker click when corresponding museum item is clicked
+  self.museumClick = function(clicked){
+      var pos = iconList().indexOf(this);
+      google.maps.event.trigger(iconList()[pos], 'click');
+  
     };
 
   self.query = ko.observable('');
 
-  //Filters list items and markers based on user input in the search bar
-  self.filterMarkers = ko.computed(function () {
+  //Filters museum items and markers based on user input in the search bar
+  self.filterIcons = ko.computed(function () {
     var search  = self.query().toLowerCase();
-    return ko.utils.arrayFilter(markerList(), function (marker) {
+    return ko.utils.arrayFilter(iconList(), function (marker) {
         var doesMatch = marker.name.toLowerCase().indexOf(search) >= 0;
         if (doesMatch){
           marker.setVisible(true);
@@ -113,43 +112,11 @@ var viewModel = function(){
           infowindow.close(this.Map);
         }
         return doesMatch;
+
       });
     
   });
-  //End self.filterPoints
-
-  //The values from the drop down menu
-  self.selected = ko.observable('');
-
-  //Clears all markers off the map
-  function clearOverlays() {
-      for (var i = 0; i < markerList().length; i++ ) {
-      markerList()[i].setMap(null);
-    }
-  }
-
-  //Pulls up the info window for the point selected in the drop down menu
-  //Puts the markers back on the map if the drop down menu value is null
-  self.onChange = function() {
-      var position = markerList().indexOf(self.selected()); 
-      if (!self.selected()) {
-        for (var i = 0; i < markerList().length; i++ ) {
-          markerList()[i].setMap(this.Map);
-          infowindow.close(this.Map);
-          this.Map.setCenter(center); 
-        }
-        return;
-      } else {
-        clearOverlays();
-        markerList()[position].setMap(this.Map);
-        google.maps.event.trigger(markerList()[position], 'click'); 
-      }
-  };
-
-  //Reset button that sets the value for the drop down menu to null
-  self.resetSelection = function () {
-    self.selected(null);
-  }
+  
 
 };
 ko.applyBindings(viewModel);

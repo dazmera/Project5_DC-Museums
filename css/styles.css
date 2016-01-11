@@ -4,17 +4,89 @@ html, body {
 	padding: 0; 
 }
 
- /*********************************************
-	MOBILE VIEW
- *********************************************/
-
+ /*main map area*/
 #map { 
 	height: 100%;
 	max-width: 100%;
 }
+/*Header */
+#hamburger {
+    border: 1px solid #999;
+    border-radius: 5px 5px 5px 5px;
+    cursor: pointer;
+    display: block;
+    height: 24px;
+    padding: 3px 4px 3px;
+    position: relative;
+    width: 25px;
+    background: #222;
+}
+#hamburger div {
+    background-color: #fff;
+    border: 1px solid #eee;
+    border-radius: 2px 2px 2px 2px;
+    height: 2px;
+    margin-top: 3px;
+    width: 90%;
+}
+/*searchbar*/
+#sidebar {
+	display: none;
+    left: 0px;
+    top: 54px;
+    position: fixed;
+    z-index: 1;
+    width: 250px;
+    height: 45px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    background: #3e3c3d;
 
+}
+.controls {
+	margin: 10px;
+	width: calc(100% - 20px);
+	height: 25px;
+	font-size: 12px;
+	-webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
 
-#pac-input {
+/*list*/
+.museumView {
+	display: none;
+    left: 0px;
+    top: 99px;
+    position: fixed;
+    z-index: 1;
+    width: 250px;
+    height: calc(100% - 99px);
+    overflow-x: hidden;
+    overflow-y: auto;
+    background: #3e3c3d;
+    opacity: 0.7;
+}
+nav ul {
+	list-style: none;
+    margin: 0;
+    width: 100%;
+    padding: 0;
+}
+nav li {
+	position: relative;
+    font-weight: bold;
+    font-size: 12px;
+    color: #fff;
+    border-bottom: 1px solid #222222;
+    border-top: 1px solid #444444;
+    padding: 15px;
+}
+nav li a {
+    color: #fff;
+    text-decoration: none;
+
+#tex-input {
 	display:none;
 	position: absolute;
 	bottom: 20%;
@@ -27,111 +99,18 @@ html, body {
 	width: 70%;
 }
 
-#pac-input:focus {
- 	border-color: #4d90fe;
+#tex-input:focus {
+ 	border-color: #3c90f0;
 }
 
-#list {
-	padding-left: 0;
-	margin-bottom: 0;
-	display: block;
-}
-
-li {
-	color: #fff;
-	list-style: none;
-	border-bottom: 1px solid gray;
-	width: 85%;
-	font-size: 0.7em;
-	padding-left: 8px;
-}
-
-.listView {
-	width: 20%;
-	position: absolute;
-	top: 50px;
-	left: 10px;
-	background-color: #000;
-	opacity: 0.7;
-	cursor: pointer;
-	display: none;
-
-}
-#dropDownMenu {
-	display: inline;
-	position: absolute;
-	top: 10px;
-	left: 35%;
-}
-
-@media screen and (max-width: 768px) {
-	.gm-style-iw {
-		max-width: 100px; 
-		height: 100px;
+  	@media screen and (max-width: 500px) {
+	/*smaller searchbars when screen is small*/
+	nav div#sidebar {
+		width: 150px;
 	}
-
-	#window{
-		height: 100px;
-		overflow-y:scroll;
+	nav div.museumView {
+		width: 150px;
 	}
 }
-
-
-/*********************************************
-	TABLET VIEW
- *********************************************/
-
-@media screen and (min-width: 768px) {
-
-	#pac-input {
-		display: block;
-		width: 14%;
-		position: absolute;
-		top: 50px;
-		left: 10px;
-		padding-left: 7px;
-		font-size: 0.7em;
-		margin: 0;
-	}
-
-	li {
-	  	padding-left: 20px;
-  	}
-
-  	.listView {
-	  	width: 15%;
-		position: absolute;
-		top: 100px;
-		left: 10px;
-		display: block;
-	}
-
-	#dropDownMenu {
-		display: none;
-	}
-
-}
-
-/*********************************************
-	Desktop View
- *********************************************/
-
-@media screen and (min-width: 1200px) {
-	#pac-input {
-		display: block;
-		width: 14.5%;
-		position: absolute;
-		top: 50px;
-		left: 10px;
-		padding-left: 10px;
-		font-size: 1em;
-	}
-
-
-	li {
-	  	width: 90%;
-	  	font-size: 1em;
-	  	padding-left: 20px;
-  	}
  
 }
